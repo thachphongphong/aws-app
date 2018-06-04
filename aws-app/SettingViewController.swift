@@ -28,7 +28,7 @@ class SettingViewController: UIViewController, ViewControllerAlerting {
         
         // update UI
         networkSwitch.isOn = prefs.isLocalNetwork
-        modeSwitch.isOn = prefs.isAutoMode
+        loadAutoStats()
     }
 
     @IBAction func mode(_ mode: UISwitch) {
@@ -98,6 +98,28 @@ class SettingViewController: UIViewController, ViewControllerAlerting {
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
         
         self.present(alert, animated: true)
+    }
+    
+    func loadAutoStats()  {
+        print("Load auto status")
+        Alamofire.request(api + "mode", method: .get).responseString { response in
+            switch response.result {
+            case .success(let value):
+                print(value)
+                if (value == "AUTO"){
+                    self.modeSwitch.setOn(true, animated: false)
+                    Preferences.shared.isAutoMode = true
+                }else{
+                    self.modeSwitch.setOn(false, animated: false)
+                    Preferences.shared.isAutoMode = false
+                }
+                break
+                
+            case .failure(let error):
+                
+                print(error)
+            }
+        }
     }
 }
 
