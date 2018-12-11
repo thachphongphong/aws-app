@@ -10,13 +10,14 @@
 		9151B3BE20B80DED005E248A /* UI+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9151B3BD20B80DED005E248A /* UI+ext.swift */; };
 		9151B3C620BC1040005E248A /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9151B3C520BC1040005E248A /* SettingViewController.swift */; };
 		9151B3C820BD41CC005E248A /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9151B3C720BD41CC005E248A /* Preferences.swift */; };
+		915BCD1E2125764400866434 /* SocketIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915BCD1D2125764400866434 /* SocketIO.framework */; };
+		915BCD212125800600866434 /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915BCD202125800600866434 /* Starscream.framework */; };
+		915BCD232125863800866434 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915BCD222125863800866434 /* Message.swift */; };
 		916FB3FD20B3E8AB00DCEEB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916FB3FC20B3E8AB00DCEEB6 /* AppDelegate.swift */; };
 		916FB3FF20B3E8AB00DCEEB6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916FB3FE20B3E8AB00DCEEB6 /* ViewController.swift */; };
 		916FB40220B3E8AB00DCEEB6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 916FB40020B3E8AB00DCEEB6 /* Main.storyboard */; };
 		916FB40420B3E8AE00DCEEB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916FB40320B3E8AE00DCEEB6 /* Assets.xcassets */; };
 		916FB40720B3E8AE00DCEEB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 916FB40520B3E8AE00DCEEB6 /* LaunchScreen.storyboard */; };
-		916FB41220B3E8AF00DCEEB6 /* aws_appTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916FB41120B3E8AF00DCEEB6 /* aws_appTests.swift */; };
-		916FB41D20B3E8AF00DCEEB6 /* aws_appUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916FB41C20B3E8AF00DCEEB6 /* aws_appUITests.swift */; };
 		916FB42C20B42E7600DCEEB6 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 916FB42B20B42E7600DCEEB6 /* Alamofire.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,9 @@
 		9151B3BD20B80DED005E248A /* UI+ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UI+ext.swift"; path = "../../ios-white-fox/WhiteFox/Extension/UI+ext.swift"; sourceTree = "<group>"; };
 		9151B3C520BC1040005E248A /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		9151B3C720BD41CC005E248A /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		915BCD1D2125764400866434 /* SocketIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketIO.framework; path = Carthage/Build/iOS/SocketIO.framework; sourceTree = "<group>"; };
+		915BCD202125800600866434 /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Carthage/Build/iOS/Starscream.framework; sourceTree = "<group>"; };
+		915BCD222125863800866434 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		916FB3F920B3E8AB00DCEEB6 /* aws-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "aws-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		916FB3FC20B3E8AB00DCEEB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		916FB3FE20B3E8AB00DCEEB6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -49,11 +53,7 @@
 		916FB40620B3E8AE00DCEEB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		916FB40820B3E8AE00DCEEB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		916FB40D20B3E8AF00DCEEB6 /* aws-appTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "aws-appTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		916FB41120B3E8AF00DCEEB6 /* aws_appTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aws_appTests.swift; sourceTree = "<group>"; };
-		916FB41320B3E8AF00DCEEB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		916FB41820B3E8AF00DCEEB6 /* aws-appUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "aws-appUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		916FB41C20B3E8AF00DCEEB6 /* aws_appUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aws_appUITests.swift; sourceTree = "<group>"; };
-		916FB41E20B3E8AF00DCEEB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		916FB42B20B42E7600DCEEB6 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -62,6 +62,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				915BCD1E2125764400866434 /* SocketIO.framework in Frameworks */,
+				915BCD212125800600866434 /* Starscream.framework in Frameworks */,
 				916FB42C20B42E7600DCEEB6 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,8 +89,6 @@
 			isa = PBXGroup;
 			children = (
 				916FB3FB20B3E8AB00DCEEB6 /* aws-app */,
-				916FB41020B3E8AF00DCEEB6 /* aws-appTests */,
-				916FB41B20B3E8AF00DCEEB6 /* aws-appUITests */,
 				916FB3FA20B3E8AB00DCEEB6 /* Products */,
 				916FB42A20B42E7600DCEEB6 /* Frameworks */,
 			);
@@ -116,31 +116,16 @@
 				916FB40820B3E8AE00DCEEB6 /* Info.plist */,
 				9151B3C520BC1040005E248A /* SettingViewController.swift */,
 				9151B3C720BD41CC005E248A /* Preferences.swift */,
+				915BCD222125863800866434 /* Message.swift */,
 			);
 			path = "aws-app";
-			sourceTree = "<group>";
-		};
-		916FB41020B3E8AF00DCEEB6 /* aws-appTests */ = {
-			isa = PBXGroup;
-			children = (
-				916FB41120B3E8AF00DCEEB6 /* aws_appTests.swift */,
-				916FB41320B3E8AF00DCEEB6 /* Info.plist */,
-			);
-			path = "aws-appTests";
-			sourceTree = "<group>";
-		};
-		916FB41B20B3E8AF00DCEEB6 /* aws-appUITests */ = {
-			isa = PBXGroup;
-			children = (
-				916FB41C20B3E8AF00DCEEB6 /* aws_appUITests.swift */,
-				916FB41E20B3E8AF00DCEEB6 /* Info.plist */,
-			);
-			path = "aws-appUITests";
 			sourceTree = "<group>";
 		};
 		916FB42A20B42E7600DCEEB6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				915BCD202125800600866434 /* Starscream.framework */,
+				915BCD1D2125764400866434 /* SocketIO.framework */,
 				916FB42B20B42E7600DCEEB6 /* Alamofire.framework */,
 			);
 			name = Frameworks;
@@ -281,9 +266,13 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SocketIO.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Starscream.framework",
 			);
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Alamofire.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SocketIO.framework",
+				"$(DERIVED_FILE_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Starscream.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -299,6 +288,7 @@
 				9151B3BE20B80DED005E248A /* UI+ext.swift in Sources */,
 				916FB3FF20B3E8AB00DCEEB6 /* ViewController.swift in Sources */,
 				9151B3C820BD41CC005E248A /* Preferences.swift in Sources */,
+				915BCD232125863800866434 /* Message.swift in Sources */,
 				916FB3FD20B3E8AB00DCEEB6 /* AppDelegate.swift in Sources */,
 				9151B3C620BC1040005E248A /* SettingViewController.swift in Sources */,
 			);
@@ -308,7 +298,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				916FB41220B3E8AF00DCEEB6 /* aws_appTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,7 +305,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				916FB41D20B3E8AF00DCEEB6 /* aws_appUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,8 +461,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KLKGZ263F5;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 4CHL46ZYJ8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -484,8 +473,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.app.ldt.aws-app";
+				PRODUCT_BUNDLE_IDENTIFIER = "au.com.crashzone.aws-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "d755a948-0d1f-493a-9b69-9a015cca1ad6";
+				PROVISIONING_PROFILE_SPECIFIER = "Any App";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -495,8 +486,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KLKGZ263F5;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 4CHL46ZYJ8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -506,8 +498,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.app.ldt.aws-app";
+				PRODUCT_BUNDLE_IDENTIFIER = "au.com.crashzone.aws-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "d755a948-0d1f-493a-9b69-9a015cca1ad6";
+				PROVISIONING_PROFILE_SPECIFIER = "Any App";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -48,6 +48,8 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hpx-Fv-h7b">
                                                 <rect key="frame" x="103" y="0.0" width="97" height="79"/>
+                                                <accessibility key="accessibilityConfiguration" label="1"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <state key="normal" image="light"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -69,7 +71,7 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tOz-a5-IGb">
                                                 <rect key="frame" x="0.0" y="0.0" width="97" height="78.5"/>
-                                                <state key="normal" image="fan"/>
+                                                <state key="normal" image="light2"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                         <integer key="value" value="10"/>
@@ -80,7 +82,7 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToButton" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="fanButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8gL-3f-HaT"/>
+                                                    <action selector="light2Button:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GVt-8K-XBj"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r6Q-dg-Rsj">
@@ -122,7 +124,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="e88-Hn-5cK"/>
                     <connections>
-                        <outlet property="fanButton" destination="tOz-a5-IGb" id="AJF-u2-1rS"/>
+                        <outlet property="light2Button" destination="tOz-a5-IGb" id="kE6-hZ-x2d"/>
                         <outlet property="lightButton" destination="hpx-Fv-h7b" id="JNp-aM-dV1"/>
                         <outlet property="valveButton" destination="f5a-u8-BSV" id="hJd-vD-CX8"/>
                         <segue destination="NsM-8Q-W1y" kind="show" identifier="SettingViewController" animates="NO" id="trJ-KC-F5F"/>
@@ -186,7 +188,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GGM-2v-5Dh">
                                         <rect key="frame" x="0.0" y="78" width="296" height="31"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h5a-ob-3L0">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timer" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h5a-ob-3L0">
                                                 <rect key="frame" x="0.0" y="0.0" width="247" height="31"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <nil key="textColor"/>
@@ -203,7 +205,7 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tJp-b1-Wi8">
                                         <rect key="frame" x="0.0" y="117" width="296" height="31"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tlU-6w-HdD">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bla" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tlU-6w-HdD">
                                                 <rect key="frame" x="0.0" y="0.0" width="247" height="31"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <nil key="textColor"/>
@@ -272,8 +274,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="fan" width="60" height="60"/>
         <image name="light" width="60" height="60"/>
+        <image name="light2" width="60" height="60"/>
         <image name="setting" width="60" height="60"/>
         <image name="valve" width="60" height="60"/>
     </resources>
