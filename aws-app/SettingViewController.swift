@@ -12,46 +12,41 @@ import Alamofire
 class SettingViewController: UIViewController, ViewControllerAlerting {
     
     weak var delegate:ApiDelegate?
-    let LOCAL_URL = "http://192.168.1.100/api/v1.0/";
-    let API_URL = "http://iothome.ddns.net/api/v1.0/"
     @IBOutlet weak var networkSwitch: UISwitch!
     @IBOutlet weak var modeSwitch: UISwitch!
     
-    var api = "";
+    // get a session manager and add the request adapter
+    let sessionManager = SessionManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        sessionManager.adapter = AccessTokenAdapter(accessToken: "hWd3uNMVpjaRAbPs9Nt3");
         let prefs = Preferences.shared
-        
-        api = API_URL
         
         // update UI
         networkSwitch.isOn = prefs.isLocalNetwork
-        loadAutoStats()
+//        loadAutoStats()
     }
 
     @IBAction func mode(_ mode: UISwitch) {
-        Alamofire.request(api + "mode", method: .post).responseString { response in
-            switch response.result {
-            case .success(_):
-                print(response)
-                Preferences.shared.isAutoMode = mode.isOn
-                break
-            case .failure(let error):
-                
-                print(error)
-            }
-        }
+//        Alamofire.request(api + "mode", method: .post).responseString { response in
+//            switch response.result {
+//            case .success(_):
+//                print(response)
+//                Preferences.shared.isAutoMode = mode.isOn
+//                break
+//            case .failure(let error):
+//
+//                print(error)
+//            }
+//        }
     }
     
     @IBAction func network(_ mode: UISwitch) {
         if(mode.isOn){
-            checkApi(LOCAL_URL, m: true)
-//            api = LOCAL_URL
+            checkApi(MainViewController.PI_HOST, m: true)
         }else{
-            checkApi(API_URL, m: false)
-//            api = API_URL
+            checkApi(MainViewController.IOT_HOST, m: false)
         }
         Preferences.shared.isLocalNetwork = mode.isOn
     }
@@ -65,11 +60,11 @@ class SettingViewController: UIViewController, ViewControllerAlerting {
         // Start the loading animation
         activityIndicator.startAnimating()
         
-        var request = URLRequest(url: NSURL.init(string: url)! as URL)
+        var request = URLRequest(url: NSURL.init(string: url+"/api/v1.0/status")! as URL)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.timeoutInterval = 3 // 10 secs
-        Alamofire.request(request).responseString { response in
+        sessionManager.request(request).responseString { response in
             switch response.result {
             case .success(let value):
                 activityIndicator.removeFromSuperview()
@@ -78,9 +73,8 @@ class SettingViewController: UIViewController, ViewControllerAlerting {
                                                 message: "Do you want to API ?",
                                                 buttonTitle: "Use",
                                                 buttonStyle: .destructive, cancelAction: nil) {
-                                                    self.api = url
                                                     self.delegate?.onApiChange(controller: self, api: url)
-                    }
+                                                }
                 }
                 break
             case .failure( _):
@@ -100,27 +94,27 @@ class SettingViewController: UIViewController, ViewControllerAlerting {
         self.present(alert, animated: true)
     }
     
-    func loadAutoStats()  {
-        print("Load auto status")
-        Alamofire.request(api + "mode", method: .get).responseString { response in
-            switch response.result {
-            case .success(let value):
-                print(value)
-                if (value == "AUTO"){
-                    self.modeSwitch.setOn(true, animated: false)
-                    Preferences.shared.isAutoMode = true
-                }else{
-                    self.modeSwitch.setOn(false, animated: false)
-                    Preferences.shared.isAutoMode = false
-                }
-                break
-                
-            case .failure(let error):
-                
-                print(error)
-            }
-        }
-    }
+//    func loadAutoStats()  {
+//        print("Load auto status")
+//        Alamofire.request(api + "mode", method: .get).responseString { response in
+//            switch response.result {
+//            case .success(let value):
+//                print(value)
+//                if (value == "AUTO"){
+//                    self.modeSwitch.setOn(true, animated: false)
+//                    Preferences.shared.isAutoMode = true
+//                }else{
+//                    self.modeSwitch.setOn(false, animated: false)
+//                    Preferences.shared.isAutoMode = false
+//                }
+//                break
+//                
+//            case .failure(let error):
+//                
+//                print(error)
+//            }
+//        }
+//    }
 }
 
 protocol ApiDelegate: class

@@ -16,19 +16,41 @@
 
 import UIKit
 import Alamofire
+import SocketIO
 
 class MainViewController: UIViewController, ApiDelegate {
     
-//    var API = "http://192.168.79.83:5000/api/v1.0/";
-    var API = "http://iothome.ddns.net/api/v1.0/";
-
+    static var DEBUG_HOST = "http://localhost:5000";
+    static var PI_HOST = "http://192.168.1.100";
+    static var IOT_HOST = "http://iotgcloud.ddns.net";
+    
+    var API_URL: String!;
+    var SOCKET_URL: String!;
+    var manager:SocketManager!
+    var socket:SocketIOClient!
+    
+    var LIGHT_ID1 = "sonoff1";
+    var LIGHT_ID2 = "sonoff2";
+    var VALVE_ID1 = "sonoff-valve";
+    
     // Reference to UIButton in Storyboard
     @IBOutlet var valveButton: UIButton!
     @IBOutlet var lightButton: UIButton!
-    @IBOutlet var fanButton: UIButton!
-
+    @IBOutlet var light2Button: UIButton!
+    
+    // get a session manager and add the request adapter
+    let sessionManager = SessionManager();
+    
+    var resetAck: SocketAckEmitter?
+    
+    func initAPI(){
+        self.API_URL = MainViewController.IOT_HOST + "/api/v1.0/";
+        self.SOCKET_URL = MainViewController.IOT_HOST;
+        self.manager = SocketManager(socketURL: URL(string: self.SOCKET_URL)!, config: [.log(true), .reconnects(true)]);
+    }
+    
     @IBAction func valveButton(_ sender: UIButton) {
-        Alamofire.request(API + "valve" , method: .post).responseString { response in
+        sessionManager.request(API_URL + VALVE_ID1 , method: .post).responseString { response in
             switch response.result {
             case .success(let value):
                 print(response)
@@ -36,7 +58,7 @@ class MainViewController: UIViewController, ApiDelegate {
                 sender.setImage((value == "on") ? #imageLiteral(resourceName: "valve") : #imageLiteral(resourceName: "valve-off"), for: .normal)
                 break
             case .failure(let error):
-
+                
                 print(error)
             }
         }
@@ -44,11 +66,9 @@ class MainViewController: UIViewController, ApiDelegate {
     }
     
     @IBAction func lightButton(_ sender: UIButton) {
-        Alamofire.request(API + "light", method: .post).responseString { response in
+        sessionManager.request(API_URL + LIGHT_ID1, method: .post).responseString { response in
             switch response.result {
             case .success(let value):
-                print(response)
-                
                 sender.setImage((value == "on") ? #imageLiteral(resourceName: "light") : #imageLiteral(resourceName: "light-off"),for: .normal)
                 break
             case .failure(let error):
@@ -59,12 +79,12 @@ class MainViewController: UIViewController, ApiDelegate {
         
     }
     
-    @IBAction func fanButton(_ sender: UIButton) {
-        Alamofire.request(API + "fan", method: .post).responseString { response in
+    @IBAction func light2Button(_ sender: UIButton) {
+        sessionManager.request(API_URL + LIGHT_ID2, method: .post).responseString { response in
             switch response.result {
             case .success(let value):
                 print(response)
-                sender.setImage((value == "on") ? #imageLiteral(resourceName: "fan"): #imageLiteral(resourceName: "fan-off"), for: .normal)
+                sender.setImage((value == "on") ? #imageLiteral(resourceName: "light2"): #imageLiteral(resourceName: "light2-off"), for: .normal)
                 break
             case .failure(let error):
                 
@@ -87,7 +107,9 @@ class MainViewController: UIViewController, ApiDelegate {
     
     
     func onApiChange(controller: SettingViewController, api: String) {
-        API = api;
+        self.API_URL = api + "/api/v1.0/";
+        self.SOCKET_URL = api;
+        self.manager = SocketManager(socketURL: URL(string: self.SOCKET_URL)!, config: [.log(true), .reconnects(true)]);
         loadButtonStats()
     }
     
@@ -100,14 +122,13 @@ class MainViewController: UIViewController, ApiDelegate {
     
     func loadButtonStats()  {
         print("Load devices status")
-        Alamofire.request(API + "status", method: .get).responseJSON { response in
+        sessionManager.request(API_URL + "status", method: .get).responseJSON { response in
             switch response.result {
             case .success(let value):
-                let data = value as? [String : String]
-//                print(data)
-                self.valveButton.setImage((data!["valve"] == "on") ? #imageLiteral(resourceName: "valve") : #imageLiteral(resourceName: "valve-off"), for: .normal)
-                self.lightButton.setImage((data!["light"] == "on") ? #imageLiteral(resourceName: "light") : #imageLiteral(resourceName: "light-off"),for: .normal)
-                self.fanButton.setImage((data!["fan"] == "on") ? #imageLiteral(resourceName: "fan"): #imageLiteral(resourceName: "fan-off"), for: .normal)
+                let data = value as? [String]
+                self.valveButton.setImage((data![2] == "on") ? #imageLiteral(resourceName: "valve") : #imageLiteral(resourceName: "valve-off"), for: .normal)
+                self.lightButton.setImage((data![0] == "on") ? #imageLiteral(resourceName: "light") : #imageLiteral(resourceName: "light-off"),for: .normal)
+                self.light2Button.setImage((data![1] == "on") ? #imageLiteral(resourceName: "light2"): #imageLiteral(resourceName: "light2-off"), for: .normal)
                 break
                 
             case .failure(let error):
@@ -116,22 +137,25 @@ class MainViewController: UIViewController, ApiDelegate {
             }
         }
     }
-
-
     
-//    func setApi(_ URL: String) -> String{
-//        loadButtonStats()
-//        return API
-//    }
     
-//    // MARK: Deleage TextFiled
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        self.view.endEditing(true)
-//        return true
-//    }
+    //    // MARK: Deleage TextFiled
+    //    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    //        self.view.endEditing(true)
+    //        return true
+    //    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initAPI();
+        //socket
+        self.socket = manager.defaultSocket;
+        self.setSocketEvents();
+        self.socket.connect();
+        self.loadButtonStats();
+        
+        sessionManager.adapter = AccessTokenAdapter(accessToken: "hWd3uNMVpjaRAbPs9Nt3");
         
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive(_:)), name: .UIApplicationDidBecomeActive, object: nil)
         
@@ -141,10 +165,39 @@ class MainViewController: UIViewController, ApiDelegate {
         loadButtonStats()
     }
     
-//    override func didReceiveMemoryWarning() {
-//        super.didReceiveMemoryWarning()
-//        // Dispose of any resources that can be recreated.
-//    }
+    //    override func didReceiveMemoryWarning() {
+    //        super.didReceiveMemoryWarning()
+    //        // Dispose of any resources that can be recreated.
+    //    }
+    
+    func setSocketEvents() {
+        self.socket.on(clientEvent: .connect){data, ack in
+            print("IOT socket connected");
+        }
+        
+        self.socket.on("mqtt_message") {data, ack in
+            self.loadButtonStats();
+        }
+        
+    }
+    
+}
 
+class AccessTokenAdapter: RequestAdapter {
+    private let accessToken: String
+    
+    init(accessToken: String) {
+        self.accessToken = accessToken
+    }
+    
+    func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
+        var urlRequest = urlRequest
+        
+//        if urlRequest.urlString.hasPrefix("https://httpbin.org") {
+            urlRequest.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
+//        }
+        
+        return urlRequest
+    }
 }
 
