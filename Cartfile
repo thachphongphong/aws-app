@@ -1,2 +1,2 @@
-github "Alamofire/Alamofire" ~> 4.7.2
+github "Alamofire/Alamofire" "alamofire5"
 github "socketio/socket.io-client-swift" ~> 13.2.1
