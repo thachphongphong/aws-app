@@ -10,81 +10,106 @@ import UIKit
 import Alamofire
 import SocketIO
 
-class MainViewController: UIViewController, ApiDelegate {
+class ViewController: UIViewController {
+    @IBOutlet weak var collectionView: UICollectionView!
     
     var manager:SocketManager!
     var socket:SocketIOClient!
-    
-    var LIGHT_ID1 = "sonoff1";
-    var LIGHT_ID2 = "sonoff2";
-    var VALVE_ID1 = "sonoff-valve";
-    
-    // Reference to UIButton in Storyboard
-    @IBOutlet var valveButton: UIButton!
-    @IBOutlet var lightButton: UIButton!
-    @IBOutlet var light2Button: UIButton!
-    
-    // get a session manager and add the request adapter
-//    let sessionManager = SessionManager();
-    
     var resetAck: SocketAckEmitter?
     
-    @IBAction func valveButton(_ sender: UIButton) {
-        APIClient.switchDevice(devId: VALVE_ID1){result in
-            switch result {
-            case .success(let status):
-                print("_____________________________")
-                print(status)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
+    var devices:[Device] = [];
+    
+    //    var estimateWidth = 100.0
+    var cellMarginSize = 16.0
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        //socket
+        self.manager = SocketManager(socketURL: URL(string: K.ProductionServer.baseURL)!, config: [.log(true), .reconnects(true)]);
+        self.socket = manager.defaultSocket;
+        self.setSocketEvents();
+        self.socket.connect();
+        
+        // Register Cell
+        self.collectionView.register(UINib(nibName: "ItemCell", bundle: nil), forCellWithReuseIdentifier: "ItemCell")
+        
+        //Setup Grid view
+        self.setupGridView()
+        
+        // Load devices
+        self.loadDevices()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.setupGridView()
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
         }
     }
     
-    @IBAction func lightButton(_ sender: UIButton) {
-//        sessionManager.request(API_URL + LIGHT_ID1, method: .post).responseString { response in
-//            switch response.result {
-//            case .success(let value):
-//                sender.setImage((value == "on") ? #imageLiteral(resourceName: "light") : #imageLiteral(resourceName: "light-off"),for: .normal)
-//                break
-//            case .failure(let error):
-//
-//                print(error)
-//            }
-//        }
-        
+    func setupGridView() {
+        let flow = collectionView?.collectionViewLayout as! UICollectionViewFlowLayout
+        flow.minimumInteritemSpacing = CGFloat(self.cellMarginSize)
+        flow.minimumLineSpacing = CGFloat(self.cellMarginSize)
     }
     
-    @IBAction func light2Button(_ sender: UIButton) {
-//        sessionManager.request(API_URL + LIGHT_ID2, method: .post).responseString { response in
-//            switch response.result {
-//            case .success(let value):
-//                print(response)
-//                sender.setImage((value == "on") ? #imageLiteral(resourceName: "light2"): #imageLiteral(resourceName: "light2-off"), for: .normal)
-//                break
-//            case .failure(let error):
-//
-//                print(error)
-//            }
-//        }
-        
+    fileprivate func updateDeviceStatus(devices:([Device]), status: ([Status])) {
+        let map = status.reduce([String: Int]()) { (dict, s) -> [String: Int] in
+            var dict = dict
+            dict[s.devId] = s.status
+            return dict
+        }
+        for d in devices {
+            let keyExists = map[d.devId!] != nil
+            if keyExists {
+                d.status = map[d.devId!] ?? 0
+            }
+        }
+        self.devices = devices;
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+    }
+    
+    func loadDevices (){
+        APIClient.getDevices{result in
+            switch result {
+            case .success(let devices):
+                if(!devices.isEmpty){
+                    APIClient.getAllStatus{result in
+                        switch result {
+                        case .success(let status):
+                            self.updateDeviceStatus(devices: devices, status: status)
+                            
+                        case .failure(let error):
+                            print("__________ERROR___________________")
+                            print(error.localizedDescription)
+                        }
+                    }
+                }
+            case .failure(let error):
+                print("__________ERROR___________________")
+                print(error.localizedDescription)
+            }
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "SettingViewController"{
-            let vc = segue.destination as! SettingViewController
-            vc.delegate = self
-        }
-    }
+    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //        if segue.identifier == "SettingViewController"{
+    //            let vc = segue.destination as! SettingViewController
+    //            vc.delegate = self
+    //        }
+    //    }
     
     
-    func onApiChange(controller: SettingViewController, api: String) {
-        loadButtonStats()
-    }
+    //    func onApiChange(controller: SettingViewController, api: String) {
+    //        loadButtonStats()
+    //    }
     
     
     @IBAction func showSetting(_ sender: Any) {
@@ -97,18 +122,7 @@ class MainViewController: UIViewController, ApiDelegate {
         APIClient.getAllStatus{result in
             switch result {
             case .success(let status):
-                print("__________SUCCESS_________________")
-                for s in status{
-                    if (s.devId == self.LIGHT_ID1) {
-                        self.lightButton.setImage((s.status == 1) ? #imageLiteral(resourceName: "light") : #imageLiteral(resourceName: "light-off"),for: .normal)
-                    }
-                    if (s.devId == self.LIGHT_ID2) {
-                        self.light2Button.setImage((s.status == 1) ? #imageLiteral(resourceName: "light2") : #imageLiteral(resourceName: "light2-off"),for: .normal)
-                    }
-                    if (s.devId == self.VALVE_ID1) {
-                        self.valveButton.setImage((s.status == 1) ? #imageLiteral(resourceName: "valve") : #imageLiteral(resourceName: "valve-off"),for: .normal)
-                    }
-                }
+                self.updateDeviceStatus(devices: self.devices, status: status)
             case .failure(let error):
                 print("__________ERROR___________________")
                 print(error.localizedDescription)
@@ -116,28 +130,9 @@ class MainViewController: UIViewController, ApiDelegate {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        //socket
-        self.manager = SocketManager(socketURL: URL(string: K.ProductionServer.baseURL)!, config: [.log(true), .reconnects(true)]);
-        self.socket = manager.defaultSocket;
-        self.setSocketEvents();
-        self.socket.connect();
-        self.loadButtonStats();
-        
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive(_:)), name: .UIApplicationDidBecomeActive, object: nil)
-        
-    }
-    
     @objc func applicationDidBecomeActive(_ note: Notification) {
-      //  loadButtonStats()
+        //  loadButtonStats()
     }
-    
-    //    override func didReceiveMemoryWarning() {
-    //        super.didReceiveMemoryWarning()
-    //        // Dispose of any resources that can be recreated.
-    //    }
     
     func setSocketEvents() {
         self.socket.on(clientEvent: .connect){data, ack in
@@ -152,24 +147,51 @@ class MainViewController: UIViewController, ApiDelegate {
     
 }
 
-//class AccessTokenAdapter: RequestAdapter {
-//    private let accessToken: String
-//
-//    init(accessToken: String) {
-//        self.accessToken = accessToken
-//    }
-//
-//    func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
-//        var urlRequest = urlRequest
-//
-////        if urlRequest.urlString.hasPrefix("https://httpbin.org") {
-//            urlRequest.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
-////        }
-//
-//        return urlRequest
-//    }
-//}
-//
-//struct Resp : Decodable {
-//    let data: Any
-//}
+extension ViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.devices.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ItemCell", for: indexPath) as! ItemCell
+        cell.setData(device: self.devices[indexPath.row])
+        cell.contentView.layer.cornerRadius = 10
+        cell.contentView.layer.masksToBounds = true
+        cell.contentView.layer.borderWidth = 0.1
+        cell.contentView.layer.borderColor = UIColor.init(red: 15, green: 156, blue: 230, alpha: 0.15).cgColor
+        
+        cell.layer.shadowColor = UIColor.init(red: 15, green: 156, blue: 230, alpha: 0.05).cgColor
+        cell.layer.shadowOffset = CGSize(width: 10, height: 10)
+        cell.layer.shadowOpacity = 0.03
+        cell.layer.shadowRadius = 10
+        cell.layer.masksToBounds = false
+        let shadowPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: cell.bounds.width-10, height: cell.bounds.height-10))
+        cell.layer.shadowPath = shadowPath.cgPath
+//        cell.layer.shadowPath = UIBezierPath(roundedRect: cell.bounds, cornerRadius: cell.contentView.layer.cornerRadius).cgPath
+        
+        cell.subscribeButtonAction = { [unowned self] in
+            let device = self.devices[indexPath.row]
+            let status = cell.deviceSwitch.isOn ? 1 : 0;
+            APIClient.switchDevice(devId: device.devId!, status: status, completion: {_ in });
+        }
+        return cell
+    }
+}
+
+extension ViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        //        let width = self.calculateWith()
+        let width = collectionView.frame.size.width
+        return CGSize(width: width, height: width/4)
+        
+    }
+    
+    //    func calculateWith() -> CGFloat {
+    //        let estimatedWidth = CGFloat(estimateWidth)
+    //        let cellCount = floor(CGFloat(self.view.frame.size.width/estimatedWidth))
+    //        let margin = CGFloat(cellMarginSize * 2)
+    //        let width = (self.view.frame.size.width - CGFloat(cellMarginSize) * (cellCount - 1) - margin) / cellCount
+    //        return width
+    //    }
+}

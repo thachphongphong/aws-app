@@ -8,6 +8,11 @@
 
 import Alamofire
 
+struct ResponseDecodable<T> {
+    var data: T
+    var messabe: String?
+}
+
 class APIClient {
     @discardableResult
     private static func performRequest<T:Decodable>(route:APIRouter, decoder: JSONDecoder = JSONDecoder(), completion:@escaping (Result<T>)->Void) -> DataRequest {
@@ -17,8 +22,8 @@ class APIClient {
         }
     }
     
-    static func switchDevice(devId: String, completion:@escaping (Result<Status>)->Void) {
-        performRequest(route: APIRouter.switchDevice(devId: devId), completion: completion)
+    static func switchDevice(devId: String, status: Int, completion:@escaping (Result<Status>)->Void) {
+        performRequest(route: APIRouter.switchDevice(devId: devId, status: status), completion: completion)
     }
     
     static func getAllStatus(completion:@escaping (Result<[Status]>)->Void) {
@@ -27,5 +32,9 @@ class APIClient {
     
     static func getStatus(devId: String, completion:@escaping (Result<Status>)->Void) {
         performRequest(route: APIRouter.status(devId: devId), completion: completion)
+    }
+    
+    static func getDevices(completion:@escaping (Result<[Device]>)->Void) {
+        performRequest(route: APIRouter.getDevice, completion: completion)
     }
 }

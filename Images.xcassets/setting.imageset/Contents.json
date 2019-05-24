@@ -2,6 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "setting24.png",
       "scale" : "1x"
     },
     {
@@ -10,7 +11,7 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "Icon-60@3x copy 4.png",
+      "filename" : "setting.png",
       "scale" : "3x"
     }
   ],

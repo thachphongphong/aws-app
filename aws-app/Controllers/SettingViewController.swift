@@ -11,7 +11,7 @@ import Alamofire
 
 class SettingViewController: UIViewController {
     
-    weak var delegate:ApiDelegate?
+    //weak var delegate:ApiDelegate?
     @IBOutlet weak var networkSwitch: UISwitch!
     @IBOutlet weak var modeSwitch: UISwitch!
     
@@ -22,7 +22,10 @@ class SettingViewController: UIViewController {
         // update UI
         networkSwitch.isOn = prefs.isLocalNetwork
     }
-
+    @IBAction func backHome(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     @IBAction func mode(_ mode: UISwitch) {
 
     }

@@ -10,16 +10,17 @@ import Alamofire
 
 enum APIRouter: URLRequestConvertible {
     
-    case switchDevice(devId:String)
+    case switchDevice(devId:String, status:Int)
     case statusAll
     case status(devId: String)
+    case getDevice
     
     // MARK: - HTTPMethod
     private var method: HTTPMethod {
         switch self {
         case .switchDevice:
             return .post
-        case .statusAll, .status:
+        case .statusAll, .status, .getDevice:
             return .get
         }
     }
@@ -27,24 +28,24 @@ enum APIRouter: URLRequestConvertible {
     // MARK: - Path
     private var path: String {
         switch self {
-        case .switchDevice(let devId):
+        case .switchDevice(let devId, _):
             return "/api/v1.0/\(devId)"
         case .statusAll:
             return "/api/v1.0/status"
         case .status(let devId):
             return "/api/v1.0/\(devId)"
+        case .getDevice:
+            return "/api/v1.0/device"
         }
     }
     
     // MARK: - Parameters
     private var parameters: Parameters? {
         switch self {
-        case .switchDevice(let devId):
-            return [K.APIParameterKey.devId: devId]
-        case .statusAll:
+        case .switchDevice( _, let status):
+            return [K.APIParameterKey.status: status]
+        case .statusAll, .status, .getDevice:
             return nil
-        case .status(let devId):
-            return [K.APIParameterKey.devId: devId]
         }
     }
     
@@ -61,6 +62,7 @@ enum APIRouter: URLRequestConvertible {
         urlRequest.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.acceptType.rawValue)
         urlRequest.setValue(ContentType.json.rawValue, forHTTPHeaderField: HTTPHeaderField.contentType.rawValue)
         urlRequest.setValue(K.APIToken.token, forHTTPHeaderField: HTTPHeaderField.authentication.rawValue)
+        urlRequest.setValue(K.APIUserId.id, forHTTPHeaderField: HTTPHeaderField.userId.rawValue)
         
         // Parameters
         if let parameters = parameters {

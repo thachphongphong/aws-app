@@ -13,15 +13,18 @@
 		913DF96F21F1B8A200E0B05B /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913DF96E21F1B8A200E0B05B /* Status.swift */; };
 		9151B3C620BC1040005E248A /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9151B3C520BC1040005E248A /* SettingViewController.swift */; };
 		9151B3C820BD41CC005E248A /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9151B3C720BD41CC005E248A /* Preferences.swift */; };
+		915613E1228E66A20077FE39 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915613E0228E66A20077FE39 /* Device.swift */; };
+		915613E9228E6F3A0077FE39 /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915613E7228E6F3A0077FE39 /* ItemCell.swift */; };
+		915613EA228E6F3A0077FE39 /* ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 915613E8228E6F3A0077FE39 /* ItemCell.xib */; };
 		915BCD1E2125764400866434 /* SocketIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915BCD1D2125764400866434 /* SocketIO.framework */; };
 		915BCD212125800600866434 /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 915BCD202125800600866434 /* Starscream.framework */; };
 		915BCD232125863800866434 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915BCD222125863800866434 /* Message.swift */; };
 		916FB3FD20B3E8AB00DCEEB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916FB3FC20B3E8AB00DCEEB6 /* AppDelegate.swift */; };
 		916FB3FF20B3E8AB00DCEEB6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916FB3FE20B3E8AB00DCEEB6 /* ViewController.swift */; };
 		916FB40220B3E8AB00DCEEB6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 916FB40020B3E8AB00DCEEB6 /* Main.storyboard */; };
-		916FB40420B3E8AE00DCEEB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916FB40320B3E8AE00DCEEB6 /* Assets.xcassets */; };
 		916FB40720B3E8AE00DCEEB6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 916FB40520B3E8AE00DCEEB6 /* LaunchScreen.storyboard */; };
 		916FB42C20B42E7600DCEEB6 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 916FB42B20B42E7600DCEEB6 /* Alamofire.framework */; };
+		91FD0E4C2296BB3500D658AF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91FD0E4B2296BB3500D658AF /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		913DF96E21F1B8A200E0B05B /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		9151B3C520BC1040005E248A /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		9151B3C720BD41CC005E248A /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		915613E0228E66A20077FE39 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		915613E7228E6F3A0077FE39 /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
+		915613E8228E6F3A0077FE39 /* ItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCell.xib; sourceTree = "<group>"; };
 		915BCD1D2125764400866434 /* SocketIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SocketIO.framework; path = Carthage/Build/iOS/SocketIO.framework; sourceTree = "<group>"; };
 		915BCD202125800600866434 /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Carthage/Build/iOS/Starscream.framework; sourceTree = "<group>"; };
 		915BCD222125863800866434 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -56,12 +62,12 @@
 		916FB3FC20B3E8AB00DCEEB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		916FB3FE20B3E8AB00DCEEB6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		916FB40120B3E8AB00DCEEB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		916FB40320B3E8AE00DCEEB6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		916FB40620B3E8AE00DCEEB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		916FB40820B3E8AE00DCEEB6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		916FB40D20B3E8AF00DCEEB6 /* aws-appTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "aws-appTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		916FB41820B3E8AF00DCEEB6 /* aws-appUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "aws-appUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		916FB42B20B42E7600DCEEB6 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		91FD0E4B2296BB3500D658AF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +111,6 @@
 			isa = PBXGroup;
 			children = (
 				9151B3C720BD41CC005E248A /* Preferences.swift */,
-				916FB40320B3E8AE00DCEEB6 /* Assets.xcassets */,
 				913DF96B21F1B39800E0B05B /* Constants.swift */,
 			);
 			path = Resources;
@@ -116,6 +121,7 @@
 			children = (
 				915BCD222125863800866434 /* Message.swift */,
 				913DF96E21F1B8A200E0B05B /* Status.swift */,
+				915613E0228E66A20077FE39 /* Device.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -137,9 +143,19 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		915613E2228E6B030077FE39 /* ItemCell */ = {
+			isa = PBXGroup;
+			children = (
+				915613E7228E6F3A0077FE39 /* ItemCell.swift */,
+				915613E8228E6F3A0077FE39 /* ItemCell.xib */,
+			);
+			path = ItemCell;
+			sourceTree = "<group>";
+		};
 		916FB3F020B3E8AB00DCEEB6 = {
 			isa = PBXGroup;
 			children = (
+				91FD0E4B2296BB3500D658AF /* Images.xcassets */,
 				916FB3FB20B3E8AB00DCEEB6 /* aws-app */,
 				916FB3FA20B3E8AB00DCEEB6 /* Products */,
 				916FB42A20B42E7600DCEEB6 /* Frameworks */,
@@ -159,6 +175,7 @@
 		916FB3FB20B3E8AB00DCEEB6 /* aws-app */ = {
 			isa = PBXGroup;
 			children = (
+				915613E2228E6B030077FE39 /* ItemCell */,
 				913DF97121F1C5AC00E0B05B /* Controllers */,
 				913DF97021F1C52900E0B05B /* Application */,
 				913DF96D21F1B89000E0B05B /* Models */,
@@ -287,8 +304,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				915613EA228E6F3A0077FE39 /* ItemCell.xib in Resources */,
+				91FD0E4C2296BB3500D658AF /* Images.xcassets in Resources */,
 				916FB40720B3E8AE00DCEEB6 /* LaunchScreen.storyboard in Resources */,
-				916FB40420B3E8AE00DCEEB6 /* Assets.xcassets in Resources */,
 				916FB40220B3E8AB00DCEEB6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -339,12 +357,14 @@
 				916FB3FF20B3E8AB00DCEEB6 /* ViewController.swift in Sources */,
 				9151B3C820BD41CC005E248A /* Preferences.swift in Sources */,
 				913DF96F21F1B8A200E0B05B /* Status.swift in Sources */,
+				915613E9228E6F3A0077FE39 /* ItemCell.swift in Sources */,
 				915BCD232125863800866434 /* Message.swift in Sources */,
 				913DF96C21F1B39800E0B05B /* Constants.swift in Sources */,
 				913DF96721F1AFDC00E0B05B /* APIRouter.swift in Sources */,
 				916FB3FD20B3E8AB00DCEEB6 /* AppDelegate.swift in Sources */,
 				9151B3C620BC1040005E248A /* SettingViewController.swift in Sources */,
 				913DF96921F1AFEF00E0B05B /* APIClient.swift in Sources */,
+				915613E1228E66A20077FE39 /* Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -532,7 +552,7 @@
 				PROVISIONING_PROFILE = "d755a948-0d1f-493a-9b69-9a015cca1ad6";
 				PROVISIONING_PROFILE_SPECIFIER = "Any App";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -542,7 +562,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 4CHL46ZYJ8;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -555,9 +575,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "au.com.crashzone.aws-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d755a948-0d1f-493a-9b69-9a015cca1ad6";
-				PROVISIONING_PROFILE_SPECIFIER = "Any App";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
